@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab Lock Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        #lockScreen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        input {
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Secure Page</h1>
+    <p>Don't switch tabs or your session will be locked.</p>
+
+    <div id="lockScreen">
+        <h2>Session Locked</h2>
+        <p>Enter the passcode:</p>
+        <input type="password" id="passcode" placeholder="Enter Code" />
+        <button onclick="unlockScreen()">Submit</button>
+    </div>
+
+    <script>
+        function lockScreen() {
+            document.getElementById("lockScreen").style.display = "flex";
+        }
+
+        function unlockScreen() {
+            let code = document.getElementById("passcode").value;
+            if (code === "1111") {
+                document.getElementById("lockScreen").style.display = "none";
+                document.getElementById("passcode").value = "";
+            } else {
+                alert("Incorrect code. Try again.");
+            }
+        }
+
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                lockScreen();
+            }
+        });
+
+        window.addEventListener("blur", function() {
+            lockScreen();
+        });
+    </script>
+</body>
+</html>
